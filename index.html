@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fadhil, S.Pd. - Portofolio Interaktif & IT Specialist</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            950: '#022c22',
+                        },
+                        mint: {
+                            400: '#34d399',
+                            500: '#10b981',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .dark .glassmorphism {
+            background: rgba(2, 44, 34, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-emerald-50/30 text-slate-800 dark:bg-[#02140e] dark:text-slate-100 min-h-screen transition-colors duration-300 overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- Toast Message Container -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 glassmorphism px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
+        <div class="w-3 h-3 rounded-full bg-brand-500 animate-ping"></div>
+        <span id="toast-message" class="text-sm font-semibold"></span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-40 glassmorphism border-b border-brand-100/60 dark:border-brand-950/30 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-emerald-300 flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-brand-500/20">
+                        F
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white block">Fadhil, S.Pd.</span>
+                        <span class="text-[10px] text-brand-600 dark:text-brand-400 font-extrabold uppercase tracking-wider block -mt-1">Pendidikan TI Cumlaude</span>
+                    </div>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+                    <a href="#profil" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Profil</a>
+                    <a href="#ai-assistant" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-1 transition-colors">
+                        <span class="relative flex h-2 w-2 mr-1">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                        </span>
+                        AI Persona
+                    </a>
+                    <a href="#database" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-1 transition-colors">
+                        <i data-lucide="database" class="w-4 h-4 text-brand-500"></i> SQL Sandbox
+                    </a>
+                    <a href="#pengalaman" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Pengalaman</a>
+                    <a href="#keahlian" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Sertifikasi</a>
+                    
+                    <!-- Dynamic Theme Switcher -->
+                    <button id="theme-toggle" class="p-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all shadow-sm border border-brand-100 dark:border-brand-900">
+                        <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+                    </button>
+                    
+                    <a href="#kontak" class="px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:opacity-95 text-white rounded-xl transition-all shadow-md shadow-brand-600/20 flex items-center gap-1.5">
+                        Rekrut Fadhil <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <!-- Mobile Menu Buttons -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-brand-100 dark:border-brand-900 bg-white/95 dark:bg-[#022c22]/95 px-4 py-4 space-y-3 shadow-lg">
+            <a href="#profil" class="block text-slate-700 dark:text-slate-200 hover:text-brand-600 py-2 text-base font-semibold">Profil</a>
+            <a href="#ai-assistant" class="block text-slate-700 dark:text-slate-200 hover:text-brand-600 py-2 text-base font-semibold">Tanya Fadhil AI</a>
+            <a href="#database" class="block text-brand-600 dark:text-brand-400 py-2 text-base font-bold flex items-center gap-2">
+                <i data-lucide="database" class="w-5 h-5"></i> SQL Sandbox Demo
+            </a>
+            <a href="#pengalaman" class="block text-slate-700 dark:text-slate-200 hover:text-brand-600 py-2 text-base font-semibold">Pengalaman Kerja</a>
+            <a href="#keahlian" class="block text-slate-700 dark:text-slate-200 hover:text-brand-600 py-2 text-base font-semibold">Sertifikasi & Skill</a>
+            <a href="#kontak" class="block text-center px-4 py-3 bg-brand-600 text-white rounded-xl font-bold shadow-md">Hubungi Saya</a>
+        </div>
+    </nav>
+
+    <!-- Hero / Profile Section -->
+    <header class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden" id="profil">
+        <!-- Aurora Neon Ambient Lights -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-400/20 dark:bg-brand-500/10 rounded-full blur-[120px] -z-10 animate-pulse-slow"></div>
+        <div class="absolute top-1/3 left-10 w-[350px] h-[350px] bg-emerald-400/20 dark:bg-emerald-400/5 rounded-full blur-[90px] -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Information Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-bold uppercase tracking-wider mx-auto lg:mx-0 border border-brand-200 dark:border-brand-900">
+                        <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-ping"></span>
+                        S1 Pendidikan Teknologi Informasi (Cumlaude)
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight text-slate-900 dark:text-white">
+                        Let's build systems,<br>
+                        with <span class="bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-400 bg-clip-text text-transparent font-black">Fadhil, S.Pd.</span>
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0 font-medium">
+                        Lulusan S1 Pendidikan Teknologi Informasi dari UIN Ar-Raniry Banda Aceh dengan masa studi **3,5 Tahun** (Cumlaude). Memiliki keahlian terintegrasi di bidang administrasi data, TIK, SQL, serta pelayanan publik prima.
+                    </p>
+                    
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 pt-2">
+                        <div class="p-4 bg-white dark:bg-brand-950/40 rounded-2xl border border-brand-100 dark:border-brand-900 text-center shadow-sm hover:shadow-md transition-all">
+                            <span class="block text-3xl font-black text-brand-600 dark:text-brand-400">3.5</span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Tahun Studi</span>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-brand-950/40 rounded-2xl border border-brand-100 dark:border-brand-900 text-center shadow-sm hover:shadow-md transition-all">
+                            <span class="block text-2xl font-black text-brand-500">IPK</span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Cumlaude</span>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-brand-950/40 rounded-2xl border border-brand-100 dark:border-brand-900 text-center shadow-sm hover:shadow-md transition-all">
+                            <span class="block text-3xl font-black text-brand-500">14</span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Kredensial</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#database" class="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2">
+                            <i data-lucide="play" class="w-5 h-5 fill-current"></i> Uji SQL Demo Saya
+                        </a>
+                        <a href="#ai-assistant" class="px-6 py-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition-all border border-slate-200 dark:border-slate-700 flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="message-square" class="w-5 h-5 text-brand-500"></i> Tanya Virtual Fadhil AI
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Visual Column: Interactive Database & System Mockup -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+                    <div class="relative group animate-float w-full max-w-sm">
+                        <!-- Neon Ring Border -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-emerald-400 rounded-2xl blur opacity-75 transition duration-1000"></div>
+                        
+                        <!-- Main Card Dashboard -->
+                        <div class="relative bg-slate-900/95 dark:bg-slate-950/95 p-5 rounded-2xl shadow-2xl flex flex-col justify-between border border-slate-700/50">
+                            <!-- Dashboard Header -->
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex gap-1">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                    </div>
+                                    <span class="text-xs font-mono text-slate-400">database_schema.sql</span>
+                                </div>
+                                <span class="px-2 py-0.5 bg-brand-500/10 text-brand-400 border border-brand-500/20 text-[10px] rounded font-mono">POSTGRESQL</span>
+                            </div>
+
+                            <!-- Schema Entity Mockup -->
+                            <div class="space-y-3 font-mono text-[11px] text-slate-300">
+                                <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+                                    <span class="text-amber-400 font-bold">TABLE</span> <span class="text-slate-100 font-bold">fadhil_profile</span> {
+                                    <div class="pl-4 text-slate-400 mt-1">
+                                        <span class="text-brand-400">id</span> INTEGER <span class="text-slate-500">PK</span><br>
+                                        <span class="text-indigo-400">degree</span> VARCHAR(50) <span class="text-slate-500">"S.Pd."</span><br>
+                                        <span class="text-indigo-400">study_time</span> NUMERIC(2,1) <span class="text-slate-500">"3.5 Years"</span><br>
+                                        <span class="text-indigo-400">gpa_status</span> VARCHAR(15) <span class="text-slate-500">"Cumlaude"</span><br>
+                                        <span class="text-indigo-400">tech_focus</span> TEXT[] <span class="text-slate-500">"['SQL', 'TIK', 'Admin']"</span>
+                                    </div>
+                                    }
+                                </div>
+
+                                <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 relative overflow-hidden">
+                                    <div class="absolute right-2 top-2 w-1.5 h-1.5 bg-brand-500 rounded-full animate-ping"></div>
+                                    <span class="text-emerald-400 font-bold">TABLE</span> <span class="text-slate-100 font-bold">skills_matrix</span> {
+                                    <div class="pl-4 text-slate-400 mt-1">
+                                        <span class="text-brand-400">id</span> INTEGER <span class="text-slate-500">PK</span><br>
+                                        <span class="text-indigo-400">sql_mastery</span> BOOLEAN <span class="text-slate-500">TRUE</span><br>
+                                        <span class="text-indigo-400">public_service</span> BOOLEAN <span class="text-slate-500">TRUE</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            
+                            <!-- Label Info -->
+                            <div class="w-full text-center pt-4 border-t border-slate-800 mt-4">
+                                <span class="font-extrabold text-xs text-white block">S1 Pendidikan Teknologi Informasi</span>
+                                <p class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mt-0.5">UIN Ar-Raniry Banda Aceh</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- AI Virtual Assistant Section -->
+    <section class="py-16 bg-slate-100/60 dark:bg-[#011c15] relative border-y border-brand-100/60 dark:border-brand-950" id="ai-assistant">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-8 space-y-3">
+                <div class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider bg-brand-50 dark:bg-brand-950/80 px-3 py-1 rounded-full border border-brand-200 dark:border-brand-900">
+                    <i data-lucide="bot" class="w-4 h-4"></i> Virtual Assistant
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Tanya Virtual Fadhil AI</h2>
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">
+                    Ingin tahu lebih banyak tentang rekam jejak Fadhil? Klik tombol instan di bawah ini untuk berinteraksi langsung dengan persona AI miliknya!
+                </p>
+            </div>
+
+            <!-- Virtual Chat Box -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-brand-200 dark:border-brand-900 shadow-xl overflow-hidden flex flex-col h-[400px]">
+                <!-- Chat Header -->
+                <div class="p-4 bg-brand-50 dark:bg-[#021c15] border-b border-brand-100 dark:border-brand-950 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <div id="chat-avatar-container" class="w-10 h-10 rounded-full bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500">
+                                <i data-lucide="bot" class="w-5 h-5"></i>
+                            </div>
+                            <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
+                        </div>
+                        <div>
+                            <span class="text-sm font-bold text-slate-800 dark:text-white block">Fadhil AI Persona</span>
+                            <span class="text-[10px] text-brand-600 dark:text-brand-400 font-bold block">Online - Siap Menjawab</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Body -->
+                <div id="chat-box" class="p-4 flex-1 overflow-y-auto space-y-4 custom-scroll bg-slate-50 dark:bg-[#01140e]">
+                    <!-- Welcome msg -->
+                    <div class="flex items-start gap-3">
+                        <div class="p-3 bg-white dark:bg-slate-900 rounded-2xl rounded-tl-none border border-slate-200 dark:border-brand-950 shadow-sm max-w-[85%] text-sm text-slate-800 dark:text-slate-200">
+                            Halo! Saya asisten virtual Fadhil. Silakan pilih salah satu pertanyaan instan di bawah ini atau tanyakan tentang keahlian & sertifikat saya! 😊
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Presets -->
+                <div class="p-4 bg-white dark:bg-slate-900 border-t border-brand-100 dark:border-brand-950">
+                    <div class="flex flex-wrap gap-2" id="chat-presets">
+                        <button onclick="askAIVirtual('kenapa_cepat')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 dark:hover:bg-brand-950 hover:text-brand-700 dark:hover:text-brand-300 text-xs rounded-xl border border-slate-200 dark:border-slate-700 transition-all font-semibold">
+                            🎓 Kenapa Lulus 3.5 Tahun?
+                        </button>
+                        <button onclick="askAIVirtual('polda_aceh')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 dark:hover:bg-brand-950 hover:text-brand-700 dark:hover:text-brand-300 text-xs rounded-xl border border-slate-200 dark:border-slate-700 transition-all font-semibold">
+                            👮 Pengalaman di Polda Aceh?
+                        </button>
+                        <button onclick="askAIVirtual('matahari_store')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 dark:hover:bg-brand-950 hover:text-brand-700 dark:hover:text-brand-300 text-xs rounded-xl border border-slate-200 dark:border-slate-700 transition-all font-semibold">
+                            🛍️ Magang di Matahari Retail?
+                        </button>
+                        <button onclick="askAIVirtual('bsi_agent')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 dark:hover:bg-brand-950 hover:text-brand-700 dark:hover:text-brand-300 text-xs rounded-xl border border-slate-200 dark:border-slate-700 transition-all font-semibold">
+                            🏦 Agent Bank Syariah Indonesia?
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SQL Playground Section -->
+    <section class="py-16 bg-white dark:bg-slate-900 relative border-b border-brand-100 dark:border-slate-800" id="database">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+                <div class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider bg-brand-50 dark:bg-brand-950/80 px-3 py-1 rounded-full border border-brand-200 dark:border-brand-900">
+                    <i data-lucide="terminal" class="w-4 h-4"></i> Kompetensi SQL Terverifikasi
+                </div>
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white">SQL Playground Terminal</h2>
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">
+                    Uji langsung kompetensi pemrograman database Fadhil. Pilih kueri relasional di bawah ini untuk memuat dataset dinamis!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Preset Queries Picker -->
+                <div class="lg:col-span-4 space-y-3 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Klik Query:</span>
+                        
+                        <button onclick="setSQLField('SELECT * FROM skills;')" class="w-full text-left p-4 rounded-2xl bg-slate-50 dark:bg-[#031c15] hover:bg-brand-50/70 dark:hover:bg-brand-950/50 border border-slate-200 dark:border-brand-900/60 transition-all group flex items-start gap-3">
+                            <div class="p-2 bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 rounded-xl group-hover:bg-brand-600 group-hover:text-white transition-all">
+                                <i data-lucide="code-2" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-brand-600 dark:text-brand-400 font-bold font-mono block">QUERY #1</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 block mt-0.5 font-mono">SELECT * FROM skills;</span>
+                                <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-1">Mengambil tabel data keahlian lengkap</span>
+                            </div>
+                        </button>
+
+                        <button onclick="setSQLField('SELECT * FROM experience;')" class="w-full text-left p-4 rounded-2xl bg-slate-50 dark:bg-[#031c15] hover:bg-brand-50/70 dark:hover:bg-brand-950/50 border border-slate-200 dark:border-brand-900/60 transition-all group flex items-start gap-3">
+                            <div class="p-2 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                <i data-lucide="briefcase" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-emerald-500 font-bold font-mono block">QUERY #2</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 block mt-0.5 font-mono">SELECT * FROM experience;</span>
+                                <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-1">Mengambil riwayat berfokus IT & Tech</span>
+                            </div>
+                        </button>
+
+                        <button onclick="setSQLField('SELECT * FROM certifications;')" class="w-full text-left p-4 rounded-2xl bg-slate-50 dark:bg-[#031c15] hover:bg-brand-50/70 dark:hover:bg-brand-950/50 border border-slate-200 dark:border-brand-900/60 transition-all group flex items-start gap-3">
+                            <div class="p-2 bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300 rounded-xl group-hover:bg-teal-600 group-hover:text-white transition-all">
+                                <i data-lucide="award" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-teal-500 font-bold font-mono block">QUERY #3</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 block mt-0.5 font-mono">SELECT * FROM certifications;</span>
+                                <span class="text-[11px] text-slate-500 dark:text-slate-400 block mt-1">Daftar sertifikat keahlian data utama</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Database Live Terminal Frame -->
+                <div class="lg:col-span-8 flex flex-col bg-[#02140e] rounded-3xl border-2 border-brand-800/40 overflow-hidden min-h-[380px] shadow-lg relative">
+                    <div class="px-5 py-3 bg-[#010a07] border-b border-brand-950/80 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-brand-500"></div>
+                            <span class="text-xs font-mono text-brand-400 font-bold">PostgreSQL Console Terminal (v4.1)</span>
+                        </div>
+                        <span class="text-[11px] font-mono text-brand-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-ping"></span> Connected: fadhil_db
+                        </span>
+                    </div>
+
+                    <div class="px-5 py-4 bg-[#01140e] border-b border-brand-950/50 flex items-center gap-3">
+                        <span class="text-emerald-400 font-mono font-bold">fadhil_db=#</span>
+                        <input type="text" id="sql-input-field" class="flex-1 bg-transparent border-none outline-none text-brand-100 font-mono text-sm focus:ring-1 focus:ring-brand-500 rounded px-1.5 py-0.5" value="SELECT * FROM skills;">
+                        <button onclick="runUserSQLQuery()" class="px-3.5 py-1.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl font-mono flex items-center gap-1 shadow-md transition-all">
+                            RUN <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Table results -->
+                    <div class="p-6 flex-1 overflow-x-auto font-mono text-xs">
+                        <div id="loading-sql" class="hidden h-full flex flex-col items-center justify-center py-10 space-y-2">
+                            <div class="w-8 h-8 rounded-full border-2 border-brand-500 border-t-transparent animate-spin"></div>
+                            <p class="text-brand-400">Executing SQL query...</p>
+                        </div>
+                        <div id="sql-table-wrapper" class="overflow-hidden rounded-xl border border-brand-950 bg-[#010d0a] shadow-inner">
+                            <!-- Table inside -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Experience Section -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="pengalaman">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-widest bg-brand-50 dark:bg-brand-950/40 px-3 py-1 rounded-full border border-brand-200 dark:border-brand-900">Karir & Rekam Jejak</span>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Pengalaman Kerja & Magang</h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">
+                Kombinasi pengalaman di instansi pemerintahan, perbankan syariah, manajemen logistik ritel, serta pengajaran TIK.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Professional Jobs -->
+            <div class="space-y-8">
+                <div class="flex items-center gap-3 pb-2 border-b border-brand-100 dark:border-brand-900">
+                    <div class="p-2 bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 rounded-xl">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 dark:text-white">Pekerjaan Profesional</h3>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Konsultan Lingkungan -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 hover:border-brand-500 transition-all shadow-sm">
+                        <div class="flex items-start justify-between flex-wrap gap-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Konsultan Lingkungan</h4>
+                                <p class="text-brand-600 dark:text-brand-400 text-sm font-semibold">Remote Work</p>
+                            </div>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-bold rounded-full">Apr 2025 - Apr 2026</span>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Menyusun dokumen teknis UKL-UPL secara akurat untuk kebutuhan perizinan proyek.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Bertanggung jawab penuh pada pengelolaan data administratif internal korporasi.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- BSI Agent -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 hover:border-brand-500 transition-all shadow-sm">
+                        <div class="flex items-start justify-between flex-wrap gap-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Agent BSI (Bank Syariah Indonesia)</h4>
+                                <p class="text-brand-600 dark:text-brand-400 text-sm font-semibold">Pelayanan Keuangan Terintegrasi</p>
+                            </div>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-bold rounded-full">Jul 2025 - Mar 2026</span>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Melayani transaksi perbankan dasar (transfer, cash-in/out, penukaran valas) secara aman.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Memelihara pelayanan masyarakat prima (service excellence) dan akurasi rekonsiliasi kas harian.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Guru TIK -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 hover:border-brand-500 transition-all shadow-sm">
+                        <div class="flex items-start justify-between flex-wrap gap-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Guru TIK (1 Semester)</h4>
+                                <p class="text-brand-600 dark:text-brand-400 text-sm font-semibold">Instansi Pendidikan</p>
+                            </div>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-bold rounded-full">Jan 2025 - Jun 2025</span>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Mentransfer modul teori dan praktik TIK secara interaktif kepada ratusan siswa.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Mengasah teknik public speaking dan kepemimpinan kelas secara efektif.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Staf Toko Perabotan -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 hover:border-brand-500 transition-all shadow-sm">
+                        <div class="flex items-start justify-between flex-wrap gap-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Staf Toko Perabotan</h4>
+                                <p class="text-brand-600 dark:text-brand-400 text-sm font-semibold">Toko Retail Perabot</p>
+                            </div>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-bold rounded-full">2019 - 2024</span>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Melayani konsultasi pemilihan produk rumah tangga dan pengukuran area di lapangan.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Mengelola kerapian display, stok gudang, dan sinkronisasi laporan penjualan.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internship Column -->
+            <div class="space-y-8">
+                <div class="flex items-center gap-3 pb-2 border-b border-brand-100 dark:border-brand-900">
+                    <div class="p-2 bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 rounded-xl">
+                        <i data-lucide="laptop" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 dark:text-white">Pengalaman Magang Premium</h3>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Polda Aceh -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border-2 border-brand-200 dark:border-brand-900 hover:border-brand-500 transition-all shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/5 rounded-full blur-xl group-hover:bg-brand-500/10 transition-all"></div>
+                        <div class="flex items-start justify-between flex-wrap gap-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Polda Aceh</h4>
+                                <p class="text-brand-600 dark:text-brand-400 text-sm font-semibold">IT Development & Admin Intern</p>
+                            </div>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-bold rounded-full border border-brand-200">Apr 2024</span>
+                        </div>
+                        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-brand-900 mb-3 text-xs leading-relaxed font-semibold text-slate-700 dark:text-slate-300">
+                            🎯 Mengembangkan dan menganalisis efektivitas alur aplikasi pelaporan harian administrasi internal Kepolisian Daerah Aceh.
+                        </div>
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Merancang skema arsitektur logika sistem pelaporan harian personel.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-500 mt-1 shrink-0"></i>
+                                Berkolaborasi menguji keandalan manajemen database laporan.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Matahari Store -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 hover:border-brand-500 transition-all shadow-sm">
+                        <div class="flex items-start justify-between flex-wrap gap-2">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">Matahari Department Store</h4>
+                                <p class="text-brand-600 dark:text-brand-400 text-sm font-semibold">Double-Role Professional Intern</p>
+                            </div>
+                            <span class="px-3 py-1 bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-xs font-bold rounded-full">Des 2025 - Mei 2026</span>
+                        </div>
+                        
+                        <div class="mt-4 space-y-3">
+                            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-brand-900">
+                                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 block mb-1">🛒 Sales Associate / Kasir</span>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Melayani transaksi ritel, melayani pemilihan produk, dan menjamin tingkat kepuasan layanan pelanggan di standar terbaik.</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-brand-900">
+                                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 block mb-1">📦 Administrasi Ekspedisi</span>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Merekap arus barang, melakukan audit silang dokumen keluar-masuk dengan stok fisik sistem komputer gudang ritel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Interactive Certificate Gallery Section -->
+    <section class="py-20 bg-brand-50/40 dark:bg-[#01140e] border-t border-brand-100 dark:border-brand-950" id="keahlian">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-widest bg-brand-100 dark:bg-brand-950 px-3 py-1 rounded-full">Kompetensi Verifikasi</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Sertifikasi & Keterampilan Ahli</h2>
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">
+                    Sistem Kredensial Portofolio Fadhil. Klik daftar kartu sertifikat di bawah ini untuk memunculkan pindaian dokumen/sertifikat digital interaktif secara langsung!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Left: Hard skills Matrix -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 shadow-sm space-y-6">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-brand-950 pb-3">Hard Skills Matrix</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span class="text-slate-700 dark:text-slate-300">Administrasi Data & MS Office (Excel/Word/PPT)</span>
+                                    <span class="text-brand-600 dark:text-brand-400">95%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-100 dark:bg-brand-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span class="text-slate-700 dark:text-slate-300">Manajemen Database (SQL Server, MySQL, Postgres)</span>
+                                    <span class="text-brand-600 dark:text-brand-400">90%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-100 dark:bg-brand-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span class="text-slate-700 dark:text-slate-300">Layanan Pelanggan (CX) & Keagenan Keuangan</span>
+                                    <span class="text-brand-600 dark:text-brand-400">92%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-100 dark:bg-brand-950 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soft skills -->
+                    <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-brand-100 dark:border-brand-900 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-brand-950 pb-3 mb-4">Soft Skills & Karakter</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 bg-brand-50 dark:bg-brand-950/40 text-brand-800 dark:text-brand-300 text-xs rounded-xl font-bold">Teliti & Sangat Disiplin</span>
+                            <span class="px-3 py-1.5 bg-teal-50 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 text-xs rounded-xl font-bold">Tangguh di Bawah Tekanan</span>
+                            <span class="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs rounded-xl font-bold">Luwes Berkomunikasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Certified List -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Category Filtering -->
+                    <div class="flex flex-wrap gap-2 border-b border-brand-100 dark:border-brand-950 pb-4">
+                        <button onclick="filterSertif('semua')" id="btn-semua" class="sertif-filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-brand-600 text-white transition-all shadow">Semua Dokumen</button>
+                        <button onclick="filterSertif('it')" id="btn-it" class="sertif-filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-brand-900 hover:text-brand-600 transition-all">IT & SQL</button>
+                        <button onclick="filterSertif('soft')" id="btn-soft" class="sertif-filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-brand-900 hover:text-brand-600 transition-all">Kepemimpinan</button>
+                        <button onclick="filterSertif('formal')" id="btn-formal" class="sertif-filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-brand-900 hover:text-brand-600 transition-all">Sertifikat Pendukung</button>
+                    </div>
+
+                    <!-- Certificate scroll list -->
+                    <div id="trainings-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scroll">
+                        <!-- Filled dynamically by javascript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Credential Modal Pop-Up -->
+    <div id="cert-modal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl border border-brand-200 dark:border-brand-900 flex flex-col md:flex-row">
+            
+            <!-- Left: Certificate Showcase Container -->
+            <div class="md:w-3/5 bg-slate-50 dark:bg-slate-950 p-4 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800">
+                <div id="modal-cert-render-slot" class="w-full h-72 md:h-96 bg-white rounded-xl overflow-hidden shadow-inner border border-slate-200 dark:border-slate-800 relative group flex items-center justify-center">
+                    <!-- SVG render injected here -->
+                </div>
+                <span class="text-[10px] text-slate-400 mt-2 text-center">Berkas Sertifikat Fadhil terverifikasi secara resmi.</span>
+            </div>
+
+            <!-- Certified Metadata Details -->
+            <div class="md:w-2/5 p-6 flex flex-col justify-between space-y-4">
+                <div class="space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="px-2.5 py-1 bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-[9px] font-black uppercase tracking-wider rounded border border-brand-200">VERIFIED ACCREDITED</span>
+                        <button onclick="closeCertModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    </div>
+                    
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-mono tracking-widest uppercase">Nama Kredensial:</p>
+                    <h3 id="modal-cert-title" class="text-sm font-black text-slate-900 dark:text-white leading-snug"></h3>
+                    
+                    <div class="space-y-1 font-mono text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-3">
+                        <p>Diberikan Kepada: <span class="text-slate-800 dark:text-slate-200 font-bold">Fadhil, S.Pd.</span></p>
+                        <p id="modal-cert-issuer">Penerbit: </p>
+                        <p id="modal-cert-id">ID Kredensial: </p>
+                    </div>
+                </div>
+
+                <!-- QR Validation Stamp mockup -->
+                <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-850 pt-4">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-brand-500 to-emerald-300 rounded-full flex items-center justify-center text-white text-[9px] font-black rotate-12 shadow-sm border border-white">
+                        OFFICIAL OK
+                    </div>
+                    <img id="modal-qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Fadhil-Verifed-Credentials" class="w-12 h-12 border border-slate-200 dark:invert rounded" alt="QR Validation">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Contact / Offer Letter Generator Section -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="kontak">
+        <div class="relative rounded-3xl bg-white dark:bg-slate-900 border-2 border-brand-100 dark:border-brand-900/60 p-8 md:p-12 overflow-hidden shadow-xl">
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-brand-100/50 dark:bg-brand-950/20 rounded-full blur-3xl"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                <div class="lg:col-span-5 space-y-6">
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-white">Hubungi Fadhil untuk Penawaran Kerja</h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed font-medium">
+                        Tertarik merekrut Fadhil untuk mengisi posisi Administrasi Data, IT Support, Database Assistant, atau Customer Care Coordinator? Hubungi kontak resmi di bawah ini.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 rounded-xl">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 dark:text-slate-500 block font-bold">WhatsApp / Telepon</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 select-all">082259397153</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 rounded-xl">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 dark:text-slate-500 block font-bold">Alamat Email Resmi</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200 select-all">fadhillbachtiarys@gmail.com</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 rounded-xl">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 dark:text-slate-500 block font-bold">Domisili Asal</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-slate-200">Aceh, Indonesia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offer Letter Composer -->
+                <div class="lg:col-span-7 bg-slate-50 dark:bg-[#02140e] border border-brand-100 dark:border-brand-900/60 rounded-2xl p-6 space-y-4">
+                    <span class="text-xs font-bold text-brand-700 dark:text-brand-400 uppercase tracking-widest block"><i data-lucide="file-text" class="w-3.5 h-3.5 inline-block -mt-1 mr-1"></i> Interactive Offer Letter Composer</span>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">Nama Perusahaan Anda</label>
+                            <input type="text" id="offer-company" oninput="updateOfferLetter()" class="w-full bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-brand-950 p-2.5 text-sm text-slate-850 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-sm" value="PT. Solusi Data Raya">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">Posisi Lowongan</label>
+                            <input type="text" id="offer-role" oninput="updateOfferLetter()" class="w-full bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-brand-950 p-2.5 text-sm text-slate-850 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-sm" value="Junior Database Administrator / IT Support">
+                        </div>
+                    </div>
+
+                    <!-- Live Rendered Preview Box -->
+                    <div class="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-brand-950 shadow-inner font-mono text-xs text-slate-700 dark:text-slate-300 leading-relaxed max-h-[160px] overflow-y-auto">
+                        <p class="font-bold border-b border-slate-100 dark:border-brand-950 pb-2 mb-2 text-brand-600 dark:text-brand-400">Live Draft Surat Penawaran:</p>
+                        <p id="offer-letter-draft">
+                            Kepada Yth. Fadhil, S.Pd.<br><br>
+                            Berdasarkan review CV (Fadhil_CV.docx) dan portofolio interaktif Anda, kami dari PT. Solusi Data Raya secara resmi bermaksud menawarkan posisi kerja sebagai Junior Database Administrator / IT Support.<br><br>
+                            Kami sangat terkesan dengan keahlian database SQL dan pencapaian studi 3,5 Tahun (Cumlaude) Anda.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+                        <button onclick="copyOfferToClipboard()" class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-800 hover:bg-slate-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Draf & Kirim
+                        </button>
+                        <button onclick="generateMail()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-lg shadow-md shadow-brand-600/10 flex items-center gap-2 transition-all">
+                            Kirim ke Email <i data-lucide="mail-open" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-white dark:bg-[#010a07] border-t border-brand-100 dark:border-brand-950 text-slate-500 dark:text-slate-400 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-4">
+            <p class="font-bold text-slate-700 dark:text-slate-300">Fadhil, S.Pd. — Portofolio Digital Profesional</p>
+            <p class="font-medium">Dikembangkan berdasarkan riwayat resume bersertifikat resmi untuk penempatan kerja administrasi data dan teknologi informasi.</p>
+            <div class="pt-4 border-t border-slate-100 dark:border-brand-950 max-w-xs mx-auto text-[10px] text-slate-400">
+                &copy; 2026 Fadhil. Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE PORTFOLIO ENGINE (JAVASCRIPT) -->
+    <script>
+        // Database Mock Dataset for Playground Console
+        const dbMock = {
+            skills: {
+                headers: ["id", "skill_name", "category", "proficiency_level"],
+                rows: [
+                    [1, "Structured Query Language (SQL)", "Database & IT", "Advanced (SQL II Trained)"],
+                    [2, "Microsoft Office (Excel/Word/PPT)", "Administration", "Expert Workflow"],
+                    [3, "Customer Service / Public Relations", "Public Relations", "Excellent Communication"],
+                    [4, "Figma & Canva UI Layout", "Design & Tools", "Creative Design Support"],
+                    [5, "Front-end Layouts (HTML, CSS)", "Database & IT", "Adaptive Layout Coding"]
+                ]
+            },
+            experience: {
+                headers: ["id", "position", "institution", "duration", "main_task"],
+                rows: [
+                    [1, "IT Development Intern", "Kepolisian Daerah (Polda) Aceh", "Magang", "Designed system daily reports"],
+                    [2, "Guru TIK", "Instansi Pendidikan", "1 Semester", "Public speaking & class mentoring"],
+                    [3, "Agent Layanan BSI", "Bank Syariah Indonesia", "8 Months", "Handled cash transactions & CS"],
+                    [4, "Sales & Expedisi", "Matahari Department Store", "6 Months", "Retailed cashier & audit stocks"]
+                ]
+            },
+            certifications: {
+                headers: ["id", "certification_name", "focus_domain", "accredited_by"],
+                rows: [
+                    [1, "PBK Program Basic SQL II", "Data & Queries", "Badan Pelatihan Resmi"],
+                    [2, "Guide to Learn SQL with AI", "AI Prompt & DB", "Online Course Program"],
+                    [3, "Database Admin for Systems", "Data Optimization", "Technical Center"],
+                    [4, "Sertifikat Anggota Humas", "Public Relations", "UIN Ar-Raniry HIMAPTI"]
+                ]
+            }
+        };
+
+        // Complete trainings list corresponding exactly to the CV
+        const allCertificates = [
+            { id: 1, title: "Pelatihan Berbasis Kompetensi (PBK) Program Basic SQL II", cat: "it", issuer: "Lembaga Pelatihan Resmi", credentialsId: "FDL-SQL2-021" },
+            { id: 2, title: "Online Course: Guide to Learn SQL with AI", cat: "it", issuer: "Online Course Program", credentialsId: "FDL-SQLAI-032" },
+            { id: 3, title: "Pelatihan Administrasi Basis Data (Database Administration) untuk Efisiensi Sistem", cat: "it", issuer: "Technical Center", credentialsId: "FDL-DBA-089" },
+            { id: 4, title: "Pelatihan Pengembangan dan Manajemen Aplikasi Sistem Evaluasi Data", cat: "it", issuer: "System Admin Training", credentialsId: "FDL-SADEV-045" },
+            { id: 5, title: "Pelatihan Basic Leadership untuk Gen Z (BPVP Banda Aceh)", cat: "soft", issuer: "Balai Pelatihan Vokasi dan Produktivitas Banda Aceh", credentialsId: "2.8/6341/HM.05/XI/2025" },
+            { id: 6, title: "Pembekalan 12+ Essential Skills: Social Influence dalam Lingkungan Kerja", cat: "soft", issuer: "Gerakan Nasional Indonesia Kompeten (GNIK)", credentialsId: "GNIK-BATCH1-2026" },
+            { id: 7, title: "Pelatihan Manajemen Komunikasi dan Humas Organisasi", cat: "soft", issuer: "UIN Ar-Raniry", credentialsId: "FDL-HUMAS-201" },
+            { id: 8, title: "Pelatihan Digitalisasi Administrasi dan Optimalisasi Sistem Pelaporan Harian", cat: "soft", issuer: "Polda Aceh Intern Team", credentialsId: "FDL-POLDA-090" },
+            { id: 9, title: "Pelatihan Tata Kelola Data Kolaboratif dalam Kerja Sama Tim", cat: "soft", issuer: "Teamwork Academy", credentialsId: "FDL-TEAM-342" },
+            { id: 10, title: "Pelatihan Waiters for Coffee Shop (Hospitality & Service Excellence)", cat: "soft", issuer: "Hospitality Institute", credentialsId: "FDL-WAIT-100" },
+            
+            // Primary Pendukung Certificates from image files
+            { id: 11, title: "Sertifikat Anggota Divisi Humas - HIMAPTI UIN Ar-Raniry", cat: "formal", issuer: "Himpunan Mahasiswa Pendidikan Teknologi Informasi", credentialsId: "A045/HIMAPTI/III/2025" },
+            { id: 12, title: "Test of Arabic as a Foreign Language (TOAFL) - Score 400", cat: "formal", issuer: "Language Development Center UIN Ar-Raniry", credentialsId: "242313998/LDC/2024" },
+            { id: 13, title: "Sertifikat Pemagangan Ritel - Kasir Terverifikasi BPVP", cat: "formal", issuer: "Matahari Department Store & Kemnaker RI", credentialsId: "MN.011.004582.02.2025" },
+            { id: 14, title: "Certificate of Appreciation Magang Nasional MDS Plaza Aceh", cat: "formal", issuer: "PT. MDS Retailing .Tbk", credentialsId: "MDS-BATCH2-APPR" }
+        ];
+
+        // AI Assistant presets answers
+        const aiAnswers = {
+            kenapa_cepat: "Fadhil berhasil menuntaskan studi S1 Pendidikan Teknologi Informasi di UIN Ar-Raniry Banda Aceh hanya dalam **3,5 Tahun** dengan predikat kehormatan **Cumlaude**. Dedikasi tinggi dan efisiensi belajar adalah kunci kesuksesan akademisnya.",
+            polda_aceh: "Selama magang di **Kepolisian Daerah (Polda) Aceh** pada April 2024, Fadhil ditugasi merancang aplikasi pelaporan harian personel guna merampingkan alur birokrasi, menghemat waktu administrasi harian, serta menganalisis efektivitas database sistem.",
+            matahari_store: "Di **Matahari Department Store**, Fadhil menjalani peran ganda (*Double-Role*): Pertama, sebagai *Sales Associate & Kasir* dalam mengedepankan kepuasan layanan belanja. Kedua, memimpin *Administrasi Ekspedisi Gudang* dalam pelacakan fisik produk.",
+            bsi_agent: "Sebagai **Agent BSI (Bank Syariah Indonesia)**, Fadhil dipercaya melayani masyarakat luas dalam mengelola arus uang kas harian secara ketat, menjaga kepatuhan protokol finansial, serta akurasi transaksi harian."
+        };
+
+        let currentActiveCertId = null;
+
+        // HIGH-FIDELITY VECTOR GRAPHIC GENERATORS FOR DYNAMIC CERTIFICATE POPUPS
+        function getSVGByCertId(certId) {
+            const cert = allCertificates.find(c => c.id === certId);
+            const title = cert.title;
+            const issuer = cert.issuer;
+            const credId = cert.credentialsId;
+
+            if (certId === 11) { // HIMAPTI Divisi Humas
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="15" y="15" width="770" height="520" rx="15" fill="none" stroke="#059669" stroke-width="6"/>
+                    <rect x="25" y="25" width="750" height="500" rx="10" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                    <path d="M 25,120 Q 110,160 80,260 T 25,410" fill="none" stroke="#10b981" stroke-width="4" opacity="0.3"/>
+                    <path d="M 775,120 Q 690,160 720,260 T 775,410" fill="none" stroke="#3b82f6" stroke-width="4" opacity="0.3"/>
+                    <text x="400" y="80" text-anchor="middle" font-size="32" font-weight="900" fill="#0f172a" letter-spacing="3">SERTIFIKAT</text>
+                    <text x="400" y="110" text-anchor="middle" font-size="16" font-weight="700" fill="#059669" letter-spacing="1">PENGHARGAAN</text>
+                    <text x="400" y="132" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">NOMOR: ${credId}</text>
+                    <text x="400" y="185" text-anchor="middle" font-size="14" font-style="italic" fill="#475569">Piagam ini dengan bangga dipersembahkan kepada:</text>
+                    <text x="400" y="242" text-anchor="middle" font-size="40" font-weight="800" fill="#1d4ed8">Fadhil</text>
+                    <text x="400" y="288" text-anchor="middle" font-size="13" fill="#475569">Atas Dedikasinya Sebagai</text>
+                    <rect x="230" y="310" width="340" height="42" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="2" />
+                    <text x="400" y="336" text-anchor="middle" font-size="15" font-weight="800" fill="#047857" letter-spacing="1">ANGGOTA DIVISI HUMAS</text>
+                    <text x="400" y="382" text-anchor="middle" font-size="12" font-weight="700" fill="#1e293b">Himpunan Mahasiswa Pendidikan Teknologi Informasi (HIMAPTI)</text>
+                    <text x="400" y="400" text-anchor="middle" font-size="11" fill="#64748b">Fakultas Tarbiyah dan Keguruan UIN Ar-Raniry Banda Aceh Masa Bakti 2024-2025</text>
+                    <text x="400" y="435" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Banda Aceh, 3 Maret 2025</text>
+                    <text x="180" y="475" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Ketua Prodi TIK</text>
+                    <text x="180" y="515" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Mira Maisura, M.Sc</text>
+                    <text x="620" y="475" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Ketua Umum HIMAPTI</text>
+                    <text x="620" y="515" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Muhammad Hazimsyah</text>
+                </svg>
+                `;
+            } else if (certId === 12) { // TOAFL 400 Language Center
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="20" y="20" width="760" height="510" rx="6" fill="none" stroke="#334155" stroke-width="2"/>
+                    <text x="400" y="55" text-anchor="middle" font-size="18" font-weight="800" fill="#0f172a">LANGUAGE DEVELOPMENT CENTER</text>
+                    <text x="400" y="75" text-anchor="middle" font-size="13" font-weight="600" fill="#475569">AR-RANIRY STATE ISLAMIC UNIVERSITY BANDA ACEH</text>
+                    <line x1="50" y1="95" x2="750" y2="95" stroke="#0f172a" stroke-width="2.5"/>
+                    <text x="400" y="132" text-anchor="middle" font-size="15" font-weight="800" fill="#1e293b" letter-spacing="1">TEST OF ARABIC AS A FOREIGN LANGUAGE (TOAFL)</text>
+                    <rect x="50" y="160" width="700" height="60" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+                    <line x1="225" y1="160" x2="225" y2="220" stroke="#1e293b" stroke-width="1.5" />
+                    <line x1="380" y1="160" x2="380" y2="220" stroke="#1e293b" stroke-width="1.5" />
+                    <line x1="570" y1="160" x2="570" y2="220" stroke="#1e293b" stroke-width="1.5" />
+                    <text x="137" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Name</text>
+                    <text x="302" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Test Date</text>
+                    <text x="475" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Reference Number</text>
+                    <text x="660" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">ID Number</text>
+                    <text x="137" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#000">FADHIL</text>
+                    <text x="302" y="205" text-anchor="middle" font-size="11" fill="#000">12/10/2024</text>
+                    <text x="475" y="205" text-anchor="middle" font-size="11" fill="#000">${credId}</text>
+                    <text x="660" y="205" text-anchor="middle" font-size="11" fill="#000">210212055</text>
+                    <text x="400" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">SCORES SCALE</text>
+                    <rect x="150" y="275" width="500" height="70" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+                    <rect x="150" y="275" width="500" height="25" fill="#3b82f6" opacity="0.95"/>
+                    <line x1="275" y1="275" x2="275" y2="345" stroke="#1e293b" stroke-width="1.5"/>
+                    <line x1="400" y1="275" x2="400" y2="345" stroke="#1e293b" stroke-width="1.5"/>
+                    <line x1="525" y1="275" x2="525" y2="345" stroke="#1e293b" stroke-width="1.5"/>
+                    <text x="212" y="292" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">LISTENING</text>
+                    <text x="337" y="292" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">STRUCTURE</text>
+                    <text x="462" y="292" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">READING</text>
+                    <text x="587" y="292" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">TOTAL SCORE</text>
+                    <text x="212" y="322" text-anchor="middle" font-size="14" font-weight="bold" fill="#000">43</text>
+                    <text x="337" y="322" text-anchor="middle" font-size="14" font-weight="bold" fill="#000">40</text>
+                    <text x="462" y="322" text-anchor="middle" font-size="14" font-weight="bold" fill="#000">37</text>
+                    <text x="587" y="324" text-anchor="middle" font-size="18" font-weight="900" fill="#1d4ed8">400</text>
+                    <text x="600" y="415" text-anchor="middle" font-size="11" fill="#475569">Director,</text>
+                    <circle cx="600" cy="455" r="28" fill="#3b82f6" opacity="0.15" />
+                    <text x="600" y="458" text-anchor="middle" font-size="8" font-weight="bold" fill="#1d4ed8" transform="rotate(-15 600 455)">APPROVED TOAFL</text>
+                    <text x="600" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#000">Nur Chalis, M.A.</text>
+                </svg>
+                `;
+            } else if (certId === 5) { // BPVP Basic Leadership
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="15" y="15" width="770" height="520" rx="12" fill="none" stroke="#d97706" stroke-width="5"/>
+                    <text x="400" y="70" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">KEMENTERIAN KETENAGAKERJAAN REPUBLIK INDONESIA</text>
+                    <text x="400" y="115" text-anchor="middle" font-size="30" font-weight="950" fill="#b45309" letter-spacing="2">SERTIFIKAT</text>
+                    <text x="400" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748b">NOMOR: 2.8/6341/HM.05/XI/2025</text>
+                    <text x="400" y="185" text-anchor="middle" font-size="13" fill="#475569">Diberikan kepada:</text>
+                    <text x="400" y="235" text-anchor="middle" font-size="36" font-weight="bold" fill="#1e293b">FADHIL, S.PD.</text>
+                    <line x1="200" y1="248" x2="600" y2="248" stroke="#b45309" stroke-width="2"/>
+                    <text x="400" y="282" text-anchor="middle" font-size="13" fill="#475569">Atas partisipasinya sebagai Peserta dalam kegiatan</text>
+                    <text x="400" y="310" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e3a8a">BULAN VOKASI 2025 BPVP BANDA ACEH</text>
+                    <text x="400" y="335" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">(PELATIHAN BASIC LEADERSHIP UNTUK GEN Z - 8 JP)</text>
+                    <text x="400" y="365" text-anchor="middle" font-size="11" fill="#475569">diselenggarakan di Balai Pelatihan Vokasi dan Produktivitas Banda Aceh tanggal 26 Oktober 2025</text>
+                    <text x="400" y="410" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Banda Aceh, 03 November 2025</text>
+                    <text x="400" y="426" text-anchor="middle" font-size="11" fill="#64748b">Kepala Balai Pelatihan Vokasi dan Produktivitas Banda Aceh,</text>
+                    <circle cx="400" cy="470" r="28" fill="#b45309" opacity="0.1" />
+                    <text x="400" y="473" text-anchor="middle" font-size="7" font-weight="bold" fill="#b45309" transform="rotate(-10 400 470)">KEMNAKER OK</text>
+                    <text x="400" y="515" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">Rahmad Faisal</text>
+                </svg>
+                `;
+            } else if (certId === 13) { // Matahari Department Store Kasir
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="15" y="15" width="770" height="520" rx="10" fill="none" stroke="#0284c7" stroke-width="6"/>
+                    <text x="400" y="65" text-anchor="middle" font-size="30" font-weight="900" fill="#0369a1" letter-spacing="3">SERTIFIKAT</text>
+                    <text x="400" y="85" text-anchor="middle" font-size="11" fill="#64748b">No: MN.011.004582.02.2025</text>
+                    <text x="400" y="130" text-anchor="middle" font-size="12" fill="#475569">Diberikan kepada:</text>
+                    <text x="400" y="180" text-anchor="middle" font-size="34" font-weight="bold" fill="#0f172a">Fadhil</text>
+                    <text x="400" y="202" text-anchor="middle" font-size="11" fill="#64748b">Tempat Tanggal Lahir : Kota Bakti, 29 Oktober 2003</text>
+                    <text x="400" y="242" text-anchor="middle" font-size="12" fill="#475569">Telah mengikuti Program Pemagangan Lulusan Perguruan Tinggi yang dilaksanakan oleh</text>
+                    <text x="400" y="272" text-anchor="middle" font-size="18" font-weight="bold" fill="#0369a1">MATAHARI DEPARTMENT STORE</text>
+                    <text x="400" y="298" text-anchor="middle" font-size="12" fill="#475569">dari tanggal 24 November 2025 s.d. 23 Mei 2026 pada posisi <tspan font-weight="bold" fill="#0f172a">KASIR</tspan></text>
+                    <text x="400" y="322" text-anchor="middle" font-size="12" fill="#475569">dan dinyatakan telah menyelesaikan Program Pemagangan dengan predikat</text>
+                    <text x="400" y="362" text-anchor="middle" font-size="22" font-weight="900" fill="#059669">SANGAT BAIK.</text>
+                    <text x="400" y="405" text-anchor="middle" font-size="11" fill="#475569">Jakarta, 23 Mei 2026</text>
+                    <text x="200" y="445" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Direktur Jenderal</text>
+                    <text x="200" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Darmawansyah, S.T., M.Si</text>
+                    <text x="600" y="445" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">STORE MANAGER</text>
+                    <text x="600" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">AGUS SURYA</text>
+                </svg>
+                `;
+            } else if (certId === 14) { // MDS Appreciation Plaza Aceh
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="20" y="20" width="760" height="510" rx="10" fill="none" stroke="#dc2626" stroke-width="4"/>
+                    <text x="400" y="80" text-anchor="middle" font-size="24" font-weight="900" fill="#991b1b" letter-spacing="1">CERTIFICATE OF APPRECIATION</text>
+                    <text x="400" y="115" text-anchor="middle" font-size="28" font-weight="800" fill="#1e293b">MDS Retailing</text>
+                    <text x="400" y="170" text-anchor="middle" font-size="12" font-style="italic" fill="#64748b">This certificate is presented to :</text>
+                    <text x="400" y="222" text-anchor="middle" font-size="36" font-weight="bold" fill="#1e3a8a">Fadhil</text>
+                    <line x1="300" y1="235" x2="500" y2="235" stroke="#991b1b" stroke-width="1.5" />
+                    <text x="400" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">Telah mengikuti program Magang Nasional Batch 2 di Matahari Department Store</text>
+                    <text x="400" y="300" text-anchor="middle" font-size="15" font-weight="bold" fill="#991b1b">PLAZA ACEH</text>
+                    <text x="400" y="330" text-anchor="middle" font-size="11" fill="#64748b">Periode : 24 November 2025 - 23 Mei 2026</text>
+                    <text x="400" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">PT. MDS Retailing .Tbk</text>
+                    <text x="400" y="392" text-anchor="middle" font-size="11" fill="#64748b">Karawaci, 23 Mei 2026</text>
+                    <text x="200" y="460" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Store Manager Mds Plaza Aceh</text>
+                    <text x="200" y="515" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Bogie Yudha Asmara</text>
+                    <text x="600" y="460" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">HRD - Chief People Officer</text>
+                    <text x="600" y="515" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Herni Dian</text>
+                </svg>
+                `;
+            } else if (certId === 6) { // GNIK Essential Skills
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="15" y="15" width="770" height="520" rx="10" fill="none" stroke="#e11d48" stroke-width="6"/>
+                    <text x="400" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#e11d48">GNIK | Maganghub</text>
+                    <text x="400" y="125" text-anchor="middle" font-size="36" font-weight="900" fill="#1e293b" letter-spacing="3">SERTIFIKAT</text>
+                    <text x="400" y="155" text-anchor="middle" font-size="11" fill="#64748b">Sertifikat ini diberikan Kepada:</text>
+                    <text x="400" y="215" text-anchor="middle" font-size="38" font-style="italic" font-weight="bold" fill="#e11d48">Fadhil</text>
+                    <line x1="250" y1="230" x2="550" y2="230" stroke="#e11d48" stroke-width="1" />
+                    <text x="400" y="265" text-anchor="middle" font-size="12" fill="#334155">Atas keberhasilan mengikuti Pembekalan 12+ Essential Skills Program Magang Nasional</text>
+                    <text x="400" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e293b">Topik Essential Skills: Social Influence pada tanggal</text>
+                    <rect x="350" y="310" width="100" height="40" rx="5" fill="#fff1f2" stroke="#fda4af" stroke-width="1" />
+                    <text x="400" y="335" text-anchor="middle" font-size="14" font-weight="bold" fill="#e11d48">Nilai 85</text>
+                    <text x="400" y="375" text-anchor="middle" font-size="11" fill="#64748b">Diselenggarakan oleh Gerakan Nasional Indonesia Kompeten (GNIK)</text>
+                    <text x="400" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Jakarta, 04 Juni 2026</text>
+                    <text x="600" y="470" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Ketua Umum PPIK</text>
+                    <text x="600" y="515" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">Dr. Yunus Triyonggo</text>
+                </svg>
+                `;
+            } else {
+                // High-Fidelity Vektor Fallback untuk sertifikat-sertifikat SQL dan lainnya
+                return `
+                <svg viewBox="0 0 800 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:'Plus Jakarta Sans', sans-serif;">
+                    <rect x="20" y="20" width="760" height="510" rx="10" fill="none" stroke="#059669" stroke-width="4"/>
+                    <rect x="30" y="30" width="740" height="490" rx="8" fill="none" stroke="#dcfce7" stroke-width="1"/>
+                    <text x="400" y="90" text-anchor="middle" font-size="28" font-weight="900" fill="#065f46" letter-spacing="3">SERTIFIKAT KOMPETENSI</text>
+                    <text x="400" y="115" text-anchor="middle" font-size="11" fill="#64748b" font-mono="true">No Kredensial: ${credId}</text>
+                    <text x="400" y="170" text-anchor="middle" font-size="12" fill="#475569">Dengan ini menerangkan bahwa:</text>
+                    <text x="400" y="215" text-anchor="middle" font-size="32" font-weight="bold" fill="#1e293b">FADHIL, S.PD.</text>
+                    <line x1="250" y1="230" x2="550" y2="230" stroke="#059669" stroke-width="1.5" />
+                    <text x="400" y="265" text-anchor="middle" font-size="12" fill="#475569">Telah dinyatakan lulus serta kompeten pada program pelatihan harian:</text>
+                    <text x="400" y="305" text-anchor="middle" font-size="16" font-weight="bold" fill="#059669">${title}</text>
+                    <text x="400" y="335" text-anchor="middle" font-size="12" fill="#475569">Penyelenggara: <tspan font-weight="bold" fill="#1e293b">${issuer}</tspan></text>
+                    <text x="400" y="380" text-anchor="middle" font-size="11" fill="#64748b">Program Verifikasi Portofolio Pendidikan Teknologi Informasi Cumlaude</text>
+                    <circle cx="400" cy="440" r="25" fill="#059669" opacity="0.1"/>
+                    <text x="400" y="443" text-anchor="middle" font-size="7" font-weight="bold" fill="#059669" transform="rotate(-15 400 440)">VERIFIED</text>
+                    <text x="400" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Dewan Penguji Kompetensi</text>
+                </svg>
+                `;
+            }
+        }
+
+        // Chatbot interaction handler
+        function askAIVirtual(presetKey) {
+            const chatBox = document.getElementById('chat-box');
+            let userQuestionText = "";
+            
+            if (presetKey === 'kenapa_cepat') userQuestionText = "🎓 Kenapa lulus cepat 3.5 Tahun?";
+            else if (presetKey === 'polda_aceh') userQuestionText = "👮 Pengalaman di Polda Aceh?";
+            else if (presetKey === 'matahari_store') userQuestionText = "🛍️ Magang di Matahari Retail?";
+            else if (presetKey === 'bsi_agent') userQuestionText = "🏦 Agent Bank Syariah Indonesia?";
+            
+            chatBox.innerHTML += `
+                <div class="flex items-start gap-3 justify-end">
+                    <div class="p-3 bg-brand-600 text-white rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-sm font-semibold animate-fade-in-up">
+                        ${userQuestionText}
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            setTimeout(() => {
+                const botAvatarHtml = `
+                    <div class="w-8 h-8 rounded-full bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4"></i>
+                    </div>
+                `;
+
+                chatBox.innerHTML += `
+                    <div class="flex items-start gap-3 animate-pulse-slow">
+                        ${botAvatarHtml}
+                        <div class="p-3 bg-white dark:bg-slate-900 rounded-2xl rounded-tl-none border border-slate-200 dark:border-brand-950 shadow-sm max-w-[85%] text-sm text-slate-800 dark:text-slate-200">
+                            <p>${aiAnswers[presetKey]}</p>
+                        </div>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+                lucide.createIcons();
+                showToast("Fadhil AI merespons!");
+            }, 600);
+        }
+
+        // Set query text from preset selection
+        function setSQLField(queryText) {
+            document.getElementById('sql-input-field').value = queryText;
+            runUserSQLQuery();
+        }
+
+        // Database simulator console logic
+        function runUserSQLQuery() {
+            const loading = document.getElementById('loading-sql');
+            const wrapper = document.getElementById('sql-table-wrapper');
+            const queryValue = document.getElementById('sql-input-field').value.trim().toLowerCase();
+
+            loading.classList.remove('hidden');
+            wrapper.classList.add('hidden');
+
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                wrapper.classList.remove('hidden');
+
+                let resolvedTable = 'skills';
+                if (queryValue.includes('experience')) resolvedTable = 'experience';
+                else if (queryValue.includes('certifications')) resolvedTable = 'certifications';
+
+                const data = dbMock[resolvedTable];
+                let tableHtml = `
+                    <table class="min-w-full divide-y divide-brand-950 text-left">
+                        <thead class="bg-[#010a07]">
+                            <tr>
+                `;
+
+                data.headers.forEach(header => {
+                    tableHtml += `<th class="px-4 py-3 text-brand-400 font-bold tracking-wider capitalize">${header.replace('_', ' ')}</th>`;
+                });
+
+                tableHtml += `
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-brand-950/40 bg-[#01140e]">
+                `;
+
+                data.rows.forEach(row => {
+                    tableHtml += `<tr class="hover:bg-[#021f15] transition-colors">`;
+                    row.forEach(val => {
+                        tableHtml += `<td class="px-4 py-2.5 text-brand-100 font-mono">${val}</td>`;
+                    });
+                    tableHtml += `</tr>`;
+                });
+
+                tableHtml += `
+                        </tbody>
+                    </table>
+                `;
+
+                wrapper.innerHTML = tableHtml;
+                showToast(`Kueri database dieksekusi secara dinamis!`);
+            }, 550);
+        }
+
+        // Dynamic Filtering layout for Certificate gallery
+        function filterSertif(category) {
+            const buttons = document.querySelectorAll('.sertif-filter-btn');
+            buttons.forEach(btn => {
+                btn.className = "sertif-filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-brand-900 hover:text-brand-600 transition-all shadow-sm";
+            });
+            document.getElementById(`btn-${category}`).className = "sertif-filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-brand-600 text-white transition-all shadow-md";
+
+            const container = document.getElementById('trainings-grid');
+            let filtered = (category === 'semua') ? allCertificates : allCertificates.filter(item => item.cat === category);
+
+            let html = "";
+            filtered.forEach(cert => {
+                let badgeColor = "bg-brand-50 dark:bg-brand-950/40 text-brand-800 dark:text-brand-300 border-brand-200";
+                if (cert.cat === "soft") badgeColor = "bg-teal-50 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 border-teal-200";
+                if (cert.cat === "formal") badgeColor = "bg-emerald-100 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-200";
+
+                html += `
+                    <div onclick="openCertModal(${cert.id})" class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-brand-900 hover:border-brand-500 transition-all flex items-start justify-between gap-3 shadow-sm hover:shadow-md cursor-pointer relative group">
+                        <div class="space-y-2 flex-1">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase border ${badgeColor}">
+                                ${cert.cat === 'it' ? 'IT & SQL' : cert.cat === 'soft' ? 'Leadership' : 'Sertifikat Pendukung'}
+                            </span>
+                            <p class="text-xs font-bold text-slate-800 dark:text-slate-200 leading-relaxed">${cert.title}</p>
+                            <span class="text-[9px] text-brand-600 dark:text-brand-400 flex items-center gap-1 font-bold">
+                                <i data-lucide="eye" class="w-3.5 h-3.5 text-brand-500"></i>
+                                Klik untuk Buka Sertifikat Digital
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Popup modal viewers
+        function openCertModal(certId) {
+            currentActiveCertId = certId;
+            const certObj = allCertificates.find(item => item.id === certId);
+            
+            document.getElementById('modal-cert-title').innerText = certObj.title;
+            document.getElementById('modal-cert-issuer').innerHTML = `Penerbit: <span class="text-slate-800 dark:text-slate-200 font-bold">${certObj.issuer}</span>`;
+            document.getElementById('modal-cert-id').innerHTML = `ID Kredensial: <span class="text-slate-800 dark:text-slate-200 font-bold select-all">${certObj.credentialsId}</span>`;
+
+            // Set dynamic QR code corresponding to the official training metadata
+            document.getElementById('modal-qr-code').src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Verify-Fadhil-${certObj.credentialsId}`;
+
+            // Inject the dynamic vector certificate
+            const renderSlot = document.getElementById('modal-cert-render-slot');
+            renderSlot.innerHTML = getSVGByCertId(certId);
+
+            document.getElementById('cert-modal').classList.remove('hidden');
+        }
+
+        function closeCertModal() {
+            document.getElementById('cert-modal').classList.add('hidden');
+            currentActiveCertId = null;
+        }
+
+        // Live composer updater
+        function updateOfferLetter() {
+            const company = document.getElementById('offer-company').value || "[Perusahaan Anda]";
+            const role = document.getElementById('offer-role').value || "[Posisi Kerja]";
+            const draftText = `
+                Kepada Yth. Fadhil, S.Pd.<br><br>
+                Berdasarkan review CV (Fadhil_CV.docx) dan portofolio interaktif Anda, kami dari <b>${company}</b> secara resmi bermaksud menawarkan posisi kerja sebagai <b>${role}</b>.<br><br>
+                Kami sangat terkesan dengan keahlian database SQL dan pencapaian studi 3,5 Tahun (Cumlaude) Anda.
+            `;
+            document.getElementById('offer-letter-draft').innerHTML = draftText;
+        }
+
+        // Copy and pop confetti
+        function copyOfferToClipboard() {
+            const textToCopy = document.getElementById('offer-letter-draft').innerText;
+            const tempInput = document.createElement("textarea");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast("Surat penawaran kerja disalin ke clipboard!");
+            
+            // Pop confetti
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#10b981', '#34d399', '#059669']
+            });
+        }
+
+        function generateMail() {
+            const company = document.getElementById('offer-company').value || 'PT. Solusi Data Raya';
+            const role = document.getElementById('offer-role').value || 'Database Administrator';
+            const bodyMessage = document.getElementById('offer-letter-draft').innerText;
+
+            const mailtoUrl = `mailto:fadhillbachtiarys@gmail.com?subject=${encodeURIComponent("Penawaran Kerja Resmi: " + role + " - " + company)}&body=${encodeURIComponent(bodyMessage)}`;
+            window.location.href = mailtoUrl;
+        }
+
+        // Global Alert toast messaging system
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Color Theme Setup
+        function initTheme() {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+
+            function toggleMode() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    showToast("Mode Terang Aktif!");
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    showToast("Mode Gelap Cyber Emerald Aktif!");
+                }
+            }
+
+            themeToggleBtn.addEventListener('click', toggleMode);
+            themeToggleMobileBtn.addEventListener('click', toggleMode);
+
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        // Initialize elements on viewport loaded
+        window.onload = function() {
+            initTheme();
+            lucide.createIcons();
+            runUserSQLQuery(); 
+            filterSertif('semua'); 
+
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        };
+    </script>
+</body>
+</html>
